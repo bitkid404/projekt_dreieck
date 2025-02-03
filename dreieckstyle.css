@@ -1,0 +1,23 @@
+/* .flexbox {
+    display: flex;
+    flex-direction: row;
+} */
+
+/* #dreieckcanvas {
+    margin: 15%;
+    position: relative;
+    top: 10%;
+    left: 20%
+} */
+
+.flex_numbers {
+    display: flex;
+    flex-direction: column;
+}
+
+.flex_numbers > div {
+    padding-left: 0px;
+    padding-top: 10px;
+    background-color: burlywood;
+    max-width: 500px;
+}
