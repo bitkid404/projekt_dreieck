@@ -12,14 +12,15 @@ class Triangle {
     }
 }
 
+//Funktion zum Zeichnen der Punkte und Beschriftung
 Triangle.prototype.draw = function(ctx){
     ctx.beginPath()
-    ctx.font="30px Arial"
-    ctx.fillText(this.name, this.x + 15, this.y + 15)
-    ctx.strokeText(this.name, this.x + 15, this.y + 15)
+    ctx.font="15px Arial"
+    ctx.fillText(this.name_pt1, this.pt1x + 10, this.pt1y + 10)
+    ctx.strokeText(this.name_pt1, this.pt1x + 10, this.pt1y + 10)
     ctx.lineWidth=1
     ctx.fillStyle="#000000"
-    ctx.arc(this.x, this.y, 16, 0, 2*Math.PI)
+    ctx.arc(this.pt1x, this.pt1y, 6, 0, 2*Math.PI)
     ctx.fill()
 
 }
@@ -43,9 +44,11 @@ function calculate(){
         //Berechnung und Ausgabe des Ergebnisses
         let u = a + b + c
         document.getElementById("info").innerHTML = `Der Umfang des Dreiecks beträgt: ${u} cm`
+        let User_Triangle = new Triangle(a, b, c, 20, 480, "P1")
         //Hinzufügen eines neuen Objekts in ein Array
-        object_array.push(new Triangle(a, b, c, 20, 480, "P1"))
+        object_array.push(User_Triangle)
         console.log(object_array)
+        User_Triangle.draw(ctx)
     }   
 };
 
