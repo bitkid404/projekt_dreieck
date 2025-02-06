@@ -1,6 +1,8 @@
 /* .flexbox {
     display: flex;
     flex-direction: row;
+    min-width: auto;
+    min-height: auto;
 } */
 
 /* #dreieckcanvas {
