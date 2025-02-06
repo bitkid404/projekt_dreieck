@@ -1,4 +1,5 @@
 //dritter Anlauf, weil nochmal anderen Ansatz gewählt
+//dieses github treibt mich nochmal zur weissglut...
 
 class Point {
     constructor(x_co, y_co, point_name){
