@@ -1,4 +1,5 @@
 //zweiter Anlauf, nachdem mir der erste Ansatz der Klassenkonstruktion nicht gefallen hatte
+//auch diesen code lasse ich liegen, wird aber mit dem Kommentar gepusht, weil ich ein commit machen muss und den im Unterricht vergessen habe
 class Point {
     constructor (point_x, point_y, point_name, side_a, side_b, side_c){
         this.point_x = point_x
