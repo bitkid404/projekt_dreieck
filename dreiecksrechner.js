@@ -35,14 +35,12 @@ Point.prototype.draw_line = function(point, ctx){
     ctx.lineTo(point.x_co, point.y_co)
     ctx.stroke()
 }
-
 //Globale Variablen, weil es mir so vom Dozenten als Design-Patterns gezeigt wurde ;)
 let point_A = null
 let point_B = null
 let point_C = null
 var distance_tracker_c = 0
 var alpha_fix = 0
-
 //Event zum Setzen der Punkte des Dreiecks
 function pointclick(xy){
     //Prüfung und löschen/neuzeichnen des Canvasgitters falls schon alle Punkte gesetzt wurden
@@ -148,7 +146,6 @@ function pointclick(xy){
         // let cal_6 = `γ = acos(${cal_6_1} / ${cal_6_2}) * ${cal_4_3}`
         // let cal_6_4 = `γ = acos(${cal_6_3}) * ${cal_4_3}`
         // let cal_6_5 = (Math.cos(cal_6_3) * cal_4_3).toFixed(2)
-
         //Beschriftung in Canvas2 hinzufügen
         ctx2.fillText(text2, 10, 130)
         ctx2.fillText(formula_A, 10, 145)
@@ -167,7 +164,6 @@ function pointclick(xy){
         ctx2.fillText(formula_gamma_2, 10, 360)
         ctx2.fillText(formula_gamma_3, 10, 375)
         ctx2.fillText(`γ = `+ gamma_fix + `°`, 10, 390)
-
     }
     else{
         //Setzt die Variablen wieder auf null wenn schon drei Punkte vorhanden sind und geklickt wurde
@@ -176,7 +172,6 @@ function pointclick(xy){
         point_C = null
     }
 }
-
 function position_tracker(track){
     //Ermittelt die aktuellen Positionen und errechnet die mögliche Seitenlänge, sowie die passenden Winkel
     //Zeigt das Ergebnis im Infofeld an
@@ -184,13 +179,14 @@ function position_tracker(track){
     position_y = track.offsetY;
     reverse = 700 - position_y
     document.getElementById("info").innerHTML = `Deine Position: x = ${position_x}  |  y = ${reverse}`
-    
+    //Prüft Punkt A
     if (point_A && !point_B){
         let delta_Bx_to_Ax = point_A.x_co - position_x
         let delta_By_to_Ay = point_A.y_co - position_y
         distance_tracker_c = Math.sqrt(delta_Bx_to_Ax**2 + delta_By_to_Ay**2).toFixed(2)
         document.getElementById("distancetracker").innerHTML = `Abstand: A Δ B = Seitenlänge c: ${distance_tracker_c}`
     }
+    //Prüft Punkt A und B
     else if (point_A && point_B && !point_C){
         let delta_Bx_to_Cx = point_B.x_co - position_x
         let delta_By_to_Cy = point_B.y_co - position_y
@@ -227,17 +223,15 @@ function position_tracker(track){
         document.getElementById("beta").innerHTML = `Winkel beta (β): ${beta_fix} °`
         document.getElementById("gamma").innerHTML = `Winkel gamma (γ): ${gamma_fix} °`
     }
-
 }
 let canvas = document.getElementById("canvas1")
 let ctx = canvas.getContext("2d")
-
+//zweires Canvas
 let canvas2 = document.getElementById("canvas2")
 let ctx2 = canvas2.getContext("2d")
 //Eventlistener dem Canvas hinzufügen
 canvas.addEventListener("click", pointclick)
 canvas.addEventListener("mousemove", position_tracker)
-
 //Linien und Text für das Koordinatensystem
 for(let i = 0; i < canvas1.width; i+=100){
     ctx.moveTo(i,0)

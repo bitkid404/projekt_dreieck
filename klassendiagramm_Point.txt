@@ -10,5 +10,5 @@
  |                |
  | - distance()   |
  | - draw_point() |
- | - draw_line () |
+ | - draw_line()  |
  |________________|
