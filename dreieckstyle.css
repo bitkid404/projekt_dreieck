@@ -11,7 +11,15 @@
     top: 10%;
     left: 20%
 }  */
+.streckenbox {
+    display: flex;
+    flex-direction: column;
+}
 
+.winkelbox {
+    display: flex;
+    flex-direction: column;
+}
 .flex_numbers {
     display: flex;
     flex-direction: column;
