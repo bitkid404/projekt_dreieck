@@ -1,16 +1,24 @@
-/* .flexbox {
+body {
+    background-color: bisque;
+}
+
+.colorchange {
+    text-align: center;
+    color: rgb(219, 208, 195);
+    background-color: rgb(69, 110, 97);
+    max-width: 250px;
+    justify-self: center;
+    margin-left: 1200px;
+    font-size: 25px;
+}
+
+.flexbox {
     display: flex;
     flex-direction: row;
     min-width: auto;
     min-height: auto;
-} */
+}
 
-/* #dreieckcanvas {
-    margin: 15%;
-    position: relative;
-    top: 10%;
-    left: 20%
-}  */
 .streckenbox {
     display: flex;
     flex-direction: column;
@@ -20,6 +28,7 @@
     display: flex;
     flex-direction: column;
 }
+
 .flex_numbers {
     display: flex;
     flex-direction: column;

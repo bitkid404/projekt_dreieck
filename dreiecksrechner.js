@@ -1,6 +1,8 @@
 //dritter Anlauf, weil nochmal anderen Ansatz gewählt
 //dieses github treibt mich nochmal zur weissglut...
 //das ist ein Tool zur Berechnung von Dreiecken
+//Leider sieht es in den verschiedenen Auflösungen unübersichtlich aus.
+//Optimal wäre die Bildschirmgröße an meinem Schulungsplatz oder ein Kurs in Responsive Webdesign, da Canvas statisch mit 1200/700px
 //es wurden der ganze Code selbst geschrieben.
 //Zum Nachschlagen wurden verschiedene Seiten aufgerufen, wie z.B. w3schools.com, selfhtml.org, mozilla.org, studienkreis.de, mathful.com, arndt-bruenner.de
 class Point {
@@ -20,7 +22,7 @@ Point.prototype.distance = function(ctx){
 Point.prototype.draw_point = function(ctx){
     ctx.beginPath()
     ctx.font = "14px Arial"
-    ctx.fillStyle="rgb(61, 94, 241)"
+    ctx.fillStyle="rgb(21, 52, 206)"
     ctx.fillText(this.point_name, this.x_co + 10, this.y_co + 10)
     ctx.arc(this.x_co,this.y_co,6,0,2*Math.PI)
     ctx.fill()
@@ -41,25 +43,24 @@ let point_B = null
 let point_C = null
 var distance_tracker_c = 0
 var alpha_fix = 0
-//Event zum Setzen der Punkte des Dreiecks
+//Funktion zum Setzen der Punkte des Dreiecks
 function pointclick(xy){
     //Prüfung und löschen/neuzeichnen des Canvasgitters falls schon alle Punkte gesetzt wurden
     if (point_A && point_B && point_C){
         ctx.clearRect(0,0, canvas.width, canvas.height)
         for(let i = 0; i < canvas1.width; i+=100){
             ctx.strokeStyle = "black"
+            //Linien waagerecht
             ctx.moveTo(i,0)
             ctx.lineTo(i,1200)
-            //Text
-            ctx.font = "10px arial"
+            ctx.font = "14px arial"
+            ctx.fillStyle = "#03171a"
             ctx.fillText(i, i, 700 - 3)
             //Linien waagerecht
             ctx.moveTo(0,i)
             ctx.lineTo(1200,i)
-        
             ctx.fillText((700-i), 0, i - 3)
             ctx.stroke()
-            //ctx.strokeText((600-i)/10, 0, i)
         }
     }
     x = xy.offsetX;
@@ -95,13 +96,15 @@ function pointclick(xy){
         debugger
         //Beschriftung der Seitenlienien berechnen und im Canvas1 hinzufügen
         ctx.beginPath()
+        ctx.fillStyle="blue"
         ctx.fillText("a", point_B.x_co - ((point_B.x_co - point_C.x_co)/2) + 8, point_B.y_co - ((point_B.y_co - point_C.y_co)/2) + 8)
         ctx.fillText("b", point_A.x_co - ((point_A.x_co - point_C.x_co)/2) + 8, point_A.y_co - ((point_A.y_co - point_C.y_co)/2) + 8)
         ctx.fillText("c", point_A.x_co - ((point_A.x_co - point_B.x_co)/2) + 8, point_A.y_co - ((point_A.y_co - point_B.y_co)/2) + 8)
-        //Beschriftung in Canvas2 hinzufügen
+        //Beschriftung in Canvas2 löschen falls schon vorhanden und neue hinzufügen
         ctx2.beginPath()
         ctx2.clearRect(0,0, canvas2.width, canvas2.height)
         ctx2.font="15px Arial"
+        ctx2.fillStyle="#0f6974"
         ctx2.fillText("Länge der Seitenlienien: ", 10, 15)
         ctx2.fillText("a = "+ a, 10, 30)
         ctx2.fillText("b = "+b, 10, 45)
@@ -118,7 +121,7 @@ function pointclick(xy){
         let cal2 =`Rechenweg: ${s} = ${u} / ${2} ;`
         let cal3 = `${A} = √ (${s}*(${s} - ${a})*(${s} - ${b})*(${s} - ${b})) `
         let text3 = `Die Winkel werden berechnet:`
-        //Berechnungsschritte alpha für die Ausgabe
+        //Berechnungsschritte Winkel alpha für die Ausgabe in Canvas2
         let formula_alpha = `α = acos((b²+c²-a²) / (2*b*c)) * (180/π)`
         let cal_4_1 = (b**2 + c**2 - a**2).toFixed(6)
         let cal_4_2 = (2*b*c).toFixed(6)
@@ -127,7 +130,7 @@ function pointclick(xy){
         let cal4 = `α = acos(${cal_4_1} / ${cal_4_2}) * ${cal_4_3}`
         let cal_4_5 = `α = acos(${cal_4_4}) * ${cal_4_3}`
         let cal_4_6 = (Math.acos(cal_4_4) * cal_4_3).toFixed(2)
-        //Berechnungsschritte beta für die Ausgabe
+        //Berechnungsschritte Winkel beta für die Ausgabe
         let formula_beta = `β = acos((a²+c²-b²) / (2*a*c)) * (180/π)`
         let cal_5_1 = (a**2 + c**2 - b**2).toFixed(6)
         let cal_5_2 = (2*a*c).toFixed(6)
@@ -135,10 +138,11 @@ function pointclick(xy){
         let cal_5 = `β = acos(${cal_5_1} / ${cal_5_2}) * ${cal_4_3}`
         let cal_5_4 = `β = acos(${cal_5_3}) * ${cal_4_3}`
         let cal_5_5 = (Math.acos(cal_5_3) * cal_4_3).toFixed(2)
-        //Berechnungsschritte gamma für die Ausgabe
+        //Berechnungsschritte Winkel gamma für die Ausgabe
         let formula_gamma = `γ = acos((a²+b²-c²) / (2*a*b)) * (180/π) oder γ = 180 - α - β`
         let formula_gamma_2 = `γ = 180 - α - β`
         let formula_gamma_3 = `γ = 180 - ${cal_4_6} - ${cal_5_5}`
+        //Berechnungsformel für Winkel gamma, wenn die anderen Winkel nicht bekannt wären
         //let gamma = (180 - cal_4_6 - cal_5_5).toFixed(2)
         // let cal_6_1 = (a**2 + b**2 - c**2).toFixed(6)
         // let cal_6_2 = (2*a*b).toFixed(6)
@@ -179,14 +183,14 @@ function position_tracker(track){
     position_y = track.offsetY;
     reverse = 700 - position_y
     document.getElementById("info").innerHTML = `Deine Position: x = ${position_x}  |  y = ${reverse}`
-    //Prüft Punkt A
+    //Prüft ob Punkt A schon vorhanden, damit aktuelle Seitenverhältnisse zu möglichen Punkt B angezeigt werden können
     if (point_A && !point_B){
         let delta_Bx_to_Ax = point_A.x_co - position_x
         let delta_By_to_Ay = point_A.y_co - position_y
         distance_tracker_c = Math.sqrt(delta_Bx_to_Ax**2 + delta_By_to_Ay**2).toFixed(2)
         document.getElementById("distancetracker").innerHTML = `Abstand: A Δ B = Seitenlänge c: ${distance_tracker_c}`
     }
-    //Prüft Punkt A und B
+    //Prüft Punkt A und B damit aktueller Abstand zu Punkt C berechnet werden kann
     else if (point_A && point_B && !point_C){
         let delta_Bx_to_Cx = point_B.x_co - position_x
         let delta_By_to_Cy = point_B.y_co - position_y
@@ -207,15 +211,14 @@ function position_tracker(track){
         //alpha = arcos(b²+c²-a²/2ab)
         //beta  = arcos(a²+c²-b²/2ac)
         //gamma = arcos(a²+b²-c²/2ab)
-        
         alpha = Math.acos((b**2 + c**2 - a**2)/(2*b*c))*180/Math.PI
         beta = Math.acos((a**2 + c**2 - b**2)/(2*a*c))*180/Math.PI
         gamma = Math.acos((a**2 + b**2 - c**2)/(2*a*b))*180/Math.PI
-
+        //Rundung auf zwei Nachkommastellen
         alpha_fix = alpha.toFixed(2)
         beta_fix = beta.toFixed(2)
         gamma_fix = gamma.toFixed(2)
-
+        //Ausgabe der Berechnungen
         document.getElementById("tracker2").innerHTML = `Abstand: B Δ C = Seitenlänge a: ${distance_tracker_2}`
         document.getElementById("tracker3").innerHTML = `Abstand: A Δ C = Seitenlänge b: ${distance_tracker_3}`
         document.getElementById("scope").innerHTML = `Umfang: ${scope_fix}`
@@ -224,9 +227,30 @@ function position_tracker(track){
         document.getElementById("gamma").innerHTML = `Winkel gamma (γ): ${gamma_fix} °`
     }
 }
+
+let mode = true
+function colorchanger(){
+    //Ändert das Farbschema der Seite
+    if (mode == true){
+        let bodypainter = document.body
+        bodypainter.style.backgroundColor="#505e54"
+        document.getElementById("canvas1").style.backgroundColor = "#127c89"
+        document.getElementById("canvas2").style.backgroundColor = "#03171a"
+        document.getElementById("canvas2").style.color = "#1cbdd1"
+        ctx.font = "14px arial"
+        ctx.fillStyle = "#03171a"
+        mode = false
+    }
+    else{
+        window.location.reload()
+        mode = true
+    }
+    
+}
+//Erstes Canvas
 let canvas = document.getElementById("canvas1")
 let ctx = canvas.getContext("2d")
-//zweires Canvas
+//zweites Canvas
 let canvas2 = document.getElementById("canvas2")
 let ctx2 = canvas2.getContext("2d")
 //Eventlistener dem Canvas hinzufügen
@@ -238,7 +262,7 @@ for(let i = 0; i < canvas1.width; i+=100){
     ctx.lineTo(i,1200)
     //Text
     ctx.font = "14px arial"
-    ctx.fillStyle="rgb(61, 94, 241)"
+    ctx.fillStyle="#03171a"
     ctx.fillText(i, i, 700 - 3)
     //Linien waagerecht
     ctx.moveTo(0,i)
@@ -247,3 +271,5 @@ for(let i = 0; i < canvas1.width; i+=100){
     ctx.fillText((700-i), 0, i - 3)
     ctx.stroke()
 }
+
+window.alert("Das ist ein Dreiecksberechner. Klicke an beliebiger Stelle die Punkte für das Dreieck. Es werden die aktuellen Maße unten angezeigt. Drücke ` strg und -/+ ` um die Bildschirmgröße anzupassen.")
